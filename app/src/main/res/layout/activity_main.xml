@@ -14,7 +14,6 @@
         android:background="@drawable/rounded_corner"
         android:text="Set Alarm"
         android:textSize="20sp"
-        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
