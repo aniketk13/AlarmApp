@@ -20,7 +20,7 @@ class StopAlarm:BroadcastReceiver() {
         mp?.reset()
         mp?.setDataSource(context!!, notification)
         mp?.prepare()
-        
+
         val notificationManager = ContextCompat.getSystemService(
             context!!,
             NotificationManager::class.java

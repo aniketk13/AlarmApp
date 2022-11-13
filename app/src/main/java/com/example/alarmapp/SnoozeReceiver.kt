@@ -16,6 +16,7 @@ import androidx.core.app.AlarmManagerCompat
 import androidx.core.content.ContextCompat
 import com.example.alarmapp.MainActivity.Companion.alarmManager
 import com.example.alarmapp.MainActivity.Companion.mp
+import com.example.alarmapp.MainActivity.Companion.time
 import java.util.*
 import kotlin.time.Duration.Companion.minutes
 
@@ -28,17 +29,17 @@ class SnoozeReceiver : BroadcastReceiver() {
         mp?.prepare()
         Log.i("helloabc",mp.toString())
 
-        val triggerTime=Calendar.getInstance()
-        triggerTime.time=Calendar.getInstance().time
-        triggerTime.add(Calendar.SECOND,5)
+//        val triggerTime=Calendar.getInstance()
+//        time.time=Calendar.getInstance().time
+        time.add(Calendar.SECOND,5)
 
-        Log.i("helloabc", triggerTime.time.toString())
+        Log.i("helloabc", time.time.toString())
 
         val notifyIntent = Intent(context, AlarmReceiver::class.java)
         val notifyPendingIntent =
             PendingIntent.getBroadcast(context, 0, notifyIntent, 0)
 
-        alarmManager?.setExact(AlarmManager.RTC_WAKEUP,triggerTime.timeInMillis,notifyPendingIntent)
+        alarmManager?.setExact(AlarmManager.RTC_WAKEUP,time.timeInMillis,notifyPendingIntent)
 
         val notificationManager = ContextCompat.getSystemService(
             context!!,

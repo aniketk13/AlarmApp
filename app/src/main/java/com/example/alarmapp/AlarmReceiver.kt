@@ -37,8 +37,7 @@ class AlarmReceiver : BroadcastReceiver() {
 
         val builder = NotificationCompat.Builder(context!!, "myalarm")
             .setSmallIcon(R.drawable.ic_launcher_background)
-            .setContentTitle("My Alarm App")
-            .setContentText("This is my first alarm")
+            .setContentTitle("Alarm Ringing...")
             .setAutoCancel(true)
             .setDefaults(NotificationCompat.DEFAULT_ALL)
             .setPriority(NotificationCompat.PRIORITY_HIGH)

@@ -9,9 +9,11 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat.EXTRA_NOTIFICATION_ID
 import com.example.alarmapp.databinding.ActivityMainBinding
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -20,6 +22,8 @@ class MainActivity : AppCompatActivity() {
         var mp: MediaPlayer? =null
         val notification: Uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE)
         var alarmManager:AlarmManager?=null
+        val time=Calendar.getInstance()
+        var i=-1
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,22 +32,27 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         mp=MediaPlayer.create(this, notification)
 
+
         binding.button.setOnClickListener {
-            val time2 = Calendar.getInstance().time
-            val time = Calendar.getInstance()
-            time.time = time2
-            time.add(Calendar.SECOND, 5)
+            if(i==-1)
+                time.time=Calendar.getInstance().time
+            i++
+            time.add(Calendar.SECOND, 10)
             Log.i("helloabc", time.time.toString())
-            setAlarm(time.timeInMillis)
+            val onlyTime=SimpleDateFormat("h:mm:ss a")
+            Toast.makeText(this,"Alarm has been set for ${onlyTime.format(time.time)}",Toast.LENGTH_SHORT).show()
+            setAlarm(time.timeInMillis,i)
         }
         createNotificationChannel()
     }
 
-    private fun setAlarm(timeInMillis: Long) {
+    private fun setAlarm(timeInMillis: Long,i:Int) {
         alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(this, AlarmReceiver::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0)
+        Log.i("helloabc",i.toString())
+        val pendingIntent = PendingIntent.getBroadcast(this, i, intent, 0)
         alarmManager?.setExact(AlarmManager.RTC_WAKEUP, timeInMillis, pendingIntent)
+
     }
 
     private fun createNotificationChannel() {
